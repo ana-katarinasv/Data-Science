@@ -10,8 +10,12 @@
 # 2)Libraries: packages used in the script
 # 3)Defining functions section 
 # 4)Setting the working directory
-# 5)Importing data - what data are you using and where is it stored?
-# 6)Logical flow - following the sections of a report for example
+# 5)Importing data: what data are you using and where is it stored?
+# 6)Logical flow: following the sections of a report for example
+# 7)Outputs of analysis (figures you want saved)
+#     - save a .pdf and .png file of every graph
+#     - good practice -- save images as subdirectory of working directory
+
 
 #Packages----
 library(tidyr)  # Formatting data for analysis
@@ -57,3 +61,34 @@ LPI2$abundance <- as.numeric(LPI2$abundance) #changes it to numeric variable
 
 #Calculate summary stats for each biome in the LPI database ----
 levels(LPI2$biome) #Generates a list of all biomes in LPI2
+
+LPI_biome_summ <- LPI2 %>% #use of pipe operator
+  group_by(biome) %>%  #group by biome
+  summarise(populations = n())  # create columns, number of populations
+
+#Visualising the number of populations in each biome with ggplot2 package----
+(barplot <- ggplot(LPI_biome_summ, aes(biome, color = biome, y = populations))
+ + geom_bar(stat="identity")+
+   theme.LPI()+ #Use of personal theme function
+   ylab("Number of populations")+
+   xlab("Biome")+
+   theme(legend.position = "none"))#Removal of legend for simplicity
+#putting entire ggplot code in brackets creates the graph and then shows it in the plot viewer
+#without brackets you've created the object without visualising it 
+
+#Outputs of analysis----
+png(file="C:/Users/Ana/Documents/Edinburgh University/Courses 21-22/Data-Science/R-WD/Data-Science/coding_club_tutorials/img/biome_pop.png", width = 1000, height = 2000)  # Note that png() uses pixel values for width and height
+ggplot(LPI_biome_summ, aes(biome, color = biome, y = populations)) + geom_bar(stat = "identity") +
+  theme.LPI() +
+  ylab("Number of populations") +
+  xlab("Biome") +
+  theme(legend.position = "none")
+dev.off()  # This tells R you are done with the plotting and it can save the file
+
+pdf(file="C:/Users/Ana/Documents/Edinburgh University/Courses 21-22/Data-Science/R-WD/Data-Science/coding_club_tutorials/img/biome_pop.pdf",  width = 13.33, height = 26.66)  # pdf() uses inches
+ggplot(LPI_biome_summ, aes(biome, color = biome, y = populations)) + geom_bar(stat = "identity") +
+  theme.LPI() +
+  ylab("Number of populations") +
+  xlab("Biome") +
+  theme(legend.position = "none")
+dev.off()
