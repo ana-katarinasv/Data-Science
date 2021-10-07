@@ -9,6 +9,7 @@
 # 1)Introduction: author statement; names; contact details; date
 # 2)Libraries: packages used in the script
 # 3)Defining functions section 
+# 4)Setting the working directory
 
 #Packages----
 library(tidyr)  # Formatting data for analysis
@@ -17,7 +18,7 @@ library(ggplot2)  # Visualising results
 library(readr)  # Manipulating data
 
 #Functions----
-# A custom ggplot2 function
+#A custom ggplot2 function stored as an object theme.LPI
 theme.LPI <- function(){
   theme_bw()+
     theme(axis.text.x=element_text(size=12, angle=45, vjust=1, hjust=1),
@@ -34,3 +35,7 @@ theme.LPI <- function(){
           legend.title = element_blank(),                              
           legend.position=c(0.9, 0.9))
 }
+#Set working directory (Windows)----
+stewd("")
+
+
