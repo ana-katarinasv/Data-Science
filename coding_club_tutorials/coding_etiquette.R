@@ -10,6 +10,8 @@
 # 2)Libraries: packages used in the script
 # 3)Defining functions section 
 # 4)Setting the working directory
+# 5)Importing data - what data are you using and where is it stored?
+# 6)Logical flow - following the sections of a report for example
 
 #Packages----
 library(tidyr)  # Formatting data for analysis
@@ -36,6 +38,22 @@ theme.LPI <- function(){
           legend.position=c(0.9, 0.9))
 }
 #Set working directory (Windows)----
-stewd("")
+setwd("C:/Users/Ana/Documents/Edinburgh University/Courses 21-22/Data-Science/Coding-Club-GITHUB-zips/CC-etiquette-master")
+#Importing data----
+LPI <- read.csv("LPIdata_CC.csv")
 
+#Formatting data----
+LPI2 <- gather(LPI, "year", "abundance", 9:53)  # Transforming the data from wide to long format, some blank cells may disappear
+# gather function requires tidyr package
 
+LPI2$year <- parse_number(LPI2$year)  # Do you see awkward Xs before all the years? This gets rid of them.
+names(LPI2)  # Check what the different variables are called
+names(LPI2) <- tolower(names(LPI2))  # Make all variable names lower case
+
+#use str()to check if the variables have stayed how we want them 
+str(LPI2)
+#Abundance is a character (chr) variable when it should be a numeric variable 
+LPI2$abundance <- as.numeric(LPI2$abundance) #changes it to numeric variable
+
+#Calculate summary stats for each biome in the LPI database ----
+levels(LPI2$biome) #Generates a list of all biomes in LPI2
