@@ -226,4 +226,51 @@ LPI_long <- LPI_long %>%
     ylab("Griffon vulture abundance\n") +                             
     xlab("\nYear"))
 
+# Indentation ----
+# indent second line if command runs over multiple 
+# automatic indentation of ggplot function after + 'enter'
+
+# Tidying up old code ----
+# Reformat your old code to add in spaces and limit line length
+install.packages("formatR")
+library("formatR")
+
+# Set working directory to wherever your messy script is
+tidy_source("messy_script_2017-02-25.R", file = "tidy_script_2017-02-25.R", width.cutoff = 100)
+# If you don't specify file = "new_script.R", your script will get overwritten, dangerous!
+# If you don't specify a width cutoff point, tidy_source just adds in the spaces
+# 100 characters seems like a reasonable cutoff point
+
+# Reformat all the scripts in a directory
+# Set your working directory to wherever your messy scripts are
+
+# IMPORTANT this will override script files, so make a duplicate back up folder, in case tidy_dir messes up
+tidy_dir(path="whatever/your/path/is", recursive = TRUE)
+# recursive	- whether to look for R scripts in subdirectories of the directory specified under path
+
+
+
+# Renaming old objects/variables ----
+# you can find and replace object words using the a tool in the script toolbar
+# renaming variables can be done by
+names(dataframe) <- gsub(".", "_", names(dataframe), fixed = TRUE)
+# This code takes all of the variable names in the imaginary dataset `dataframe` and replaces `.` with `_`
+# Depending on the naming style you are using, you might want to go the other way around and use `.` in all variable names
+
+names(dataframe) <- tolower(names(dataframe))
+# This code makes all of the variable names in the imaginary dataset lowercase
+
+colnames(dataframe)[colnames(dataframe) == 'Old_Complicated_Name'] <- 'new.simple.name'
+# Renaming an individual column in the imaginary dataset
+
+# Addins ----
+install.packages('addinslist')
+# click on  Addins/Browse RStudio Addins, you will see the list of addins and the links to their Github repos
+# Insert a box around the introductory section of your script
+install.packages("devtools")
+devtools::install_github("ThinkRstat/littleboxes")
+
+# Afterwards select your introductory comments, click on Addins/ Little boxes and the box appears!
+# Note that if you are also reformatting your code using formatR, reformat the code first, then add the box.
+# formatR messes up these boxes otherwise!
 
