@@ -92,3 +92,25 @@ ggplot(LPI_biome_summ, aes(biome, color = biome, y = populations)) + geom_bar(st
   xlab("Biome") +
   theme(legend.position = "none")
 dev.off()
+
+#Following coding syntax etiquette ----
+
+#object names should be concise and meaningful
+#object,function, variable names should be lowercase
+#avoid spaces in file names
+#variable names should be nouns 
+#function names should be verbs 
+#use underscore to separate words in file names/object/variables
+#use dots to spearate function words
+
+# Object names
+avg_clicks  # Good.
+avg.clicks  # Acceptable.
+avg_Clicks  # Not okay.
+
+# Function names
+calculate.avg.clicks  # This is what we are aiming for.
+CalculateAvgClicks  # Not that bad, but mixing capital and lowercase letters can lead to typos
+calculate_avg_clicks 
+calculateAvgClicks  # Bad. The convention is that functions are defined using dots, not underscores.
+
